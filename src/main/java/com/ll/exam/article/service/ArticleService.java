@@ -37,6 +37,8 @@ public class ArticleService {
     }
 
     // 두가지 경우를 설계
+
+    // 이전글 가져오기
     public ArticleDto getPrevArticle(ArticleDto articleDto) {
         long id = articleDto.getId();
         return articleRepository.getPrevArticle(id);
@@ -45,7 +47,14 @@ public class ArticleService {
         return articleRepository.getPrevArticle(id);
     }   // id 값으로 받았을 때
 
-    public ArticleDto getNextArticle(int id) {
+
+    // 다음글 가져오기
+    public ArticleDto getNextArticle(ArticleDto articleDto) {
+        long id = articleDto.getId();
         return articleRepository.getNextArticle(id);
-    }
+    }   // 객체로 받았을 때
+
+    public ArticleDto getNextArticle(long id) {
+        return articleRepository.getNextArticle(id);
+    }   // id 값으로 받았을 때
 }

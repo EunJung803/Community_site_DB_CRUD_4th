@@ -169,9 +169,18 @@ public class ArticleServiceTest {
 
     @Test
     public void bring_next_article() {
-        ArticleDto articleDto = articleService.getNextArticle(5);
+        ArticleDto articleDto1 = articleService.getArticleById(2);
+        ArticleDto articleDto2 = articleService.getNextArticle(articleDto1);
 
-        assertThat(articleDto.getId()).isEqualTo(6);
+        assertThat(articleDto2.getId()).isEqualTo(3);
+    }
+
+    @Test
+    public void bring_next_article_마지막글다음은없다() {
+        long lastArticleId = TEST_DATA_SIZE;
+        ArticleDto articleDto2 = articleService.getNextArticle(lastArticleId);
+
+        assertThat(articleDto2).isNull();
     }
 
 }

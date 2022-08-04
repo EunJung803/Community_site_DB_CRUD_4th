@@ -85,11 +85,13 @@ public class ArticleRepository {
         return sql.selectRow(ArticleDto.class);
     }
 
-    public ArticleDto getNextArticle(int id) {
+    public ArticleDto getNextArticle(long id) {
         SecSql sql = myMap.genSecSql();
         sql
                 .append("SELECT * FROM article")
-                .append("WHERE id = ?", id+1);
+                .append("WHERE id > ?", id)
+                .append("ORDER BY id ASC")
+                .append("LIMIT 1");
 
         return sql.selectRow(ArticleDto.class);
     }
