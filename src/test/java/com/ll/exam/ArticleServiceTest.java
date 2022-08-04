@@ -56,7 +56,7 @@ public class ArticleServiceTest {
         MyMap myMap = Container.getObj(MyMap.class);
 
         IntStream.rangeClosed(1, TEST_DATA_SIZE).forEach(no -> {
-            boolean isBlind = false;
+            boolean isBlind = no >= 11 && no <= 20;
             String title = "제목%d".formatted(no);
             String body = "내용%d".formatted(no);
 
@@ -181,6 +181,14 @@ public class ArticleServiceTest {
         ArticleDto articleDto2 = articleService.getNextArticle(lastArticleId);
 
         assertThat(articleDto2).isNull();
+    }
+
+    @Test
+    public void 블라인드_글을_건너뛰고_그다음글을_가져온다() {
+        ArticleDto articleDto = articleService.getNextArticle(10);
+
+        // 11번부터 20번까지는 블라인드 되었다면 10번글 다음은 21번글이 나와야한다.
+        assertThat(articleDto.getId()).isEqualTo(21);
     }
 
 }
