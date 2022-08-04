@@ -3,7 +3,6 @@ package com.ll.exam;
 import com.ll.exam.article.dto.ArticleDto;
 import com.ll.exam.article.service.ArticleService;
 import com.ll.exam.mymap.MyMap;
-import com.ll.exam.util.Ut;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -154,14 +153,23 @@ public class ArticleServiceTest {
 
     @Test
     public void bring_previous_article() {
-        ArticleDto articleDto = articleService.bringPrevArticle(5);
+        ArticleDto articleDto1 = articleService.getArticleById(2);
+        ArticleDto articleDto2 = articleService.getPrevArticle(articleDto1);
 
-        assertThat(articleDto.getId()).isEqualTo(4);
+        assertThat(articleDto2.getId()).isEqualTo(1);
+    }
+
+    @Test
+    public void bring_previous_article_1번글이전은없다() {
+        ArticleDto articleDto1 = articleService.getArticleById(1);
+        ArticleDto articleDto2 = articleService.getPrevArticle(articleDto1);
+
+        assertThat(articleDto2).isNull();
     }
 
     @Test
     public void bring_next_article() {
-        ArticleDto articleDto = articleService.bringNextArticle(5);
+        ArticleDto articleDto = articleService.getNextArticle(5);
 
         assertThat(articleDto.getId()).isEqualTo(6);
     }

@@ -74,16 +74,18 @@ public class ArticleRepository {
         sql.delete();
     }
 
-    public ArticleDto bringPrevArticle(int id) {
+    public ArticleDto getPrevArticle(long id) {
         SecSql sql = myMap.genSecSql();
         sql
                 .append("SELECT * FROM article")
-                .append("WHERE id = ?", id-1);
+                .append("WHERE id < ?", id)
+                .append("ORDER BY id DESC")
+                .append("LIMIT 1");
 
         return sql.selectRow(ArticleDto.class);
     }
 
-    public ArticleDto bringNextArticle(int id) {
+    public ArticleDto getNextArticle(int id) {
         SecSql sql = myMap.genSecSql();
         sql
                 .append("SELECT * FROM article")

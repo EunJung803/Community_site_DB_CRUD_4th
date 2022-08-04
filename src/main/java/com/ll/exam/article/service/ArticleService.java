@@ -36,11 +36,16 @@ public class ArticleService {
         articleRepository.delete(id);
     }
 
-    public ArticleDto bringPrevArticle(int id) {
-        return articleRepository.bringPrevArticle(id);
-    }
+    // 두가지 경우를 설계
+    public ArticleDto getPrevArticle(ArticleDto articleDto) {
+        long id = articleDto.getId();
+        return articleRepository.getPrevArticle(id);
+    }   // 객체로 받았을 때
+    public ArticleDto getPrevArticle(long id) {
+        return articleRepository.getPrevArticle(id);
+    }   // id 값으로 받았을 때
 
-    public ArticleDto bringNextArticle(int id) {
-        return articleRepository.bringNextArticle(id);
+    public ArticleDto getNextArticle(int id) {
+        return articleRepository.getNextArticle(id);
     }
 }
