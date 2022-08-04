@@ -3,6 +3,7 @@ package com.ll.exam;
 import com.ll.exam.article.dto.ArticleDto;
 import com.ll.exam.article.service.ArticleService;
 import com.ll.exam.mymap.MyMap;
+import com.ll.exam.util.Ut;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -123,6 +124,8 @@ public class ArticleServiceTest {
 
     @Test
     public void modify() {
+//        Ut.sleep(5000);
+
         ArticleService articleService = Container.getObj(ArticleService.class);
 
         articleService.modify(1, "제목 new", "내용 new", true);
