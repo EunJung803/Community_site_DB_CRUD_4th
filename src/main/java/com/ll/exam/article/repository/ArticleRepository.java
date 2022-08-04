@@ -64,4 +64,13 @@ public class ArticleRepository {
 
         sql.update();
     }
+
+    public void delete(int id) {
+        SecSql sql = myMap.genSecSql();
+        sql
+                .append("DELETE FROM article")
+                .append("WHERE id = ?", id);
+
+        sql.delete();
+    }
 }
