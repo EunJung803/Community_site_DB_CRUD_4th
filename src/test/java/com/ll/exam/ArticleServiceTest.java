@@ -152,4 +152,18 @@ public class ArticleServiceTest {
         assertThat(articleDto).isNull();
     }
 
+    @Test
+    public void bring_previous_article() {
+        ArticleDto articleDto = articleService.bringPrevArticle(5);
+
+        assertThat(articleDto.getId()).isEqualTo(4);
+    }
+
+    @Test
+    public void bring_next_article() {
+        ArticleDto articleDto = articleService.bringNextArticle(5);
+
+        assertThat(articleDto.getId()).isEqualTo(6);
+    }
+
 }

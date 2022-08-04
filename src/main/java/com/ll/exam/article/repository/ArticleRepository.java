@@ -73,4 +73,22 @@ public class ArticleRepository {
 
         sql.delete();
     }
+
+    public ArticleDto bringPrevArticle(int id) {
+        SecSql sql = myMap.genSecSql();
+        sql
+                .append("SELECT * FROM article")
+                .append("WHERE id = ?", id-1);
+
+        return sql.selectRow(ArticleDto.class);
+    }
+
+    public ArticleDto bringNextArticle(int id) {
+        SecSql sql = myMap.genSecSql();
+        sql
+                .append("SELECT * FROM article")
+                .append("WHERE id = ?", id+1);
+
+        return sql.selectRow(ArticleDto.class);
+    }
 }
