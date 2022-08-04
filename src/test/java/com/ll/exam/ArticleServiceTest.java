@@ -3,18 +3,32 @@ package com.ll.exam;
 import com.ll.exam.article.dto.ArticleDto;
 import com.ll.exam.article.service.ArticleService;
 import com.ll.exam.mymap.MyMap;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ArticleServiceTest {
-    // 테스트를 수행하며 각각의 테스트 케이스들이 독립적인 환경에서 실행되도록 설정하는게 필요한 걸 느꼈다.
-    // 따라서 @BeforeEach를 도입하고자 하였다.
 
+    // @BeforeAll 붙인 아래 메서드는
+    @BeforeAll
+    public void BeforeAll() {
+        MyMap myMap = Container.getObj(MyMap.class);
+
+        // 모든 DB 처리시에, 처리되는 SQL을 콘솔에 출력
+        myMap.setDevMode(true);
+    }
+
+    // 테스트를 수행하며 각각의 테스트 케이스들이 독립적인 환경에서 실행되도록 설정하는게 필요한 걸 느꼈다.
+    // 따라서 @BeforeEach를 도입 ⬇
     // @BeforeEach를 붙인 아래 메서드는
     // @Test가 달려있는 메서드가 실행되기 전에 자동으로 실행이 된다.
     // 주로 테스트 환경을 깔끔하게 정리하는 역할을 한다.
@@ -118,9 +132,14 @@ public class ArticleServiceTest {
         assertThat(articleDto.getId()).isEqualTo(1);
         assertThat(articleDto.getTitle()).isEqualTo("제목 new");
         assertThat(articleDto.getBody()).isEqualTo("내용 new");
-        assertThat(articleDto.getCreatedDate()).isNotNull();
-        assertThat(articleDto.getModifiedDate()).isNotNull();
         assertThat(articleDto.isBlind()).isEqualTo(true);
+
+        // DB에서 받아온 게시물 수정날짜와 자바에서 계산한 현재 날짜를 비교하여(초단위)
+        // 그것이 1초 이하로 차이가 난다면
+        // 수정날짜가 갱신되었다 라고 볼 수 있음
+        // 따라서 수정날짜 갱신의 값을 얻어오기 위해 ChronoUnit 사용 ⬇
+        long diffSeconds = ChronoUnit.SECONDS.between(articleDto.getModifiedDate(), LocalDateTime.now());
+        assertThat(diffSeconds).isLessThanOrEqualTo(1L);
     }
 
 }
