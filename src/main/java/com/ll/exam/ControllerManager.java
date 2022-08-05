@@ -1,6 +1,7 @@
 package com.ll.exam;
 
 import com.ll.exam.annotation.Controller;
+import com.ll.exam.annotation.DeleteMapping;
 import com.ll.exam.annotation.GetMapping;
 import com.ll.exam.annotation.PostMapping;
 import com.ll.exam.mymap.MyMap;
@@ -31,6 +32,7 @@ public class ControllerManager {
             for (Method method : methods) {
                 GetMapping getMapping = method.getAnnotation(GetMapping.class);
                 PostMapping postMapping = method.getAnnotation(PostMapping.class);
+                DeleteMapping deleteMapping = method.getAnnotation(DeleteMapping.class);
 
                 String httpMethod = null;
                 String path = null;
@@ -43,6 +45,11 @@ public class ControllerManager {
                 else if (postMapping != null) {
                     path = postMapping.value();
                     httpMethod = "POST";
+                }
+
+                else if (deleteMapping != null) {
+                    path = deleteMapping.value();
+                    httpMethod = "DELETE";
                 }
 
                 if (path != null && httpMethod != null) {
