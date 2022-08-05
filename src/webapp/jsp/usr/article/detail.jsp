@@ -9,14 +9,18 @@
         </h1>
 
         <div>
-            <div>
+            <div class="mt-3">
                 <i class="fa-solid fa-clock"></i> 작성 : ${article.createdDate}
             </div>
             <div>
                 <i class="fa-solid fa-pen-to-square"></i> 수정 : ${article.modifiedDate}
             </div>
-            <div>
-                <div class="toast-ui-viewer">
+            <div class="mt-2">
+                <div class="mt-2">
+                    <a href="/usr/article/modify/${article.id}" class="btn btn-outline btn-info btn-xs">수정</a>
+                    <a onclick="if ( !confirm('정말로 삭제하시겠습니까?') ) return false;" href="/usr/article/delete/${article.id}?_method=DELETE" class="btn btn-outline btn-info btn-xs">삭제</a>
+                </div>
+                <div class="toast-ui-viewer bg-white">
                     <script type="text/x-template">
                         ${article.body}
                     </script>
