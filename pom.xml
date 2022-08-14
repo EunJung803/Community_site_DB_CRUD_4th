@@ -117,7 +117,7 @@
                 <configuration>
                     <url>https://site1.ll1.eluu.xyz/manager/text</url>
                     <server>ll1__manager_text</server>
-                    <path>/</path>
+                    <path>/ROOT##2</path>
                 </configuration>
             </plugin>
 

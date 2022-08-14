@@ -55,7 +55,7 @@
                         <span class="badge badge-info mr-2">${listItemArticle.id}</span>
                         <div class="group-hover:underline group-hover:text-blue-200">
                             <c:if test="${listItemArticle.id == article.id}">
-                                <span class="text-[red]">현재글</span> -
+                                <span class="text-blue-200">현재글</span> -
                             </c:if>
                                 ${listItemArticle.title} - ${listItemArticle.createdDate}
                         </div>
