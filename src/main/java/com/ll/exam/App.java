@@ -17,10 +17,11 @@ public class App {
         }
 
         if (isProd) {
+            // 운영 DB 정보
             DB_HOST = "172.17.0.1";
             DB_PORT = 3306;
-            DB_ID = "root";
-            DB_PASSWORD = "lldj123414";
+            DB_ID = "lldjlocal";
+            DB_PASSWORD = "1234";
             DB_NAME = "site1";
         }
     }
