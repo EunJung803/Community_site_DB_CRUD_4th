@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="comm_4th" />
         <module name="comm__3rd" />
+        <module name="comm__4th_crud" />
       </profile>
     </annotationProcessing>
   </component>
